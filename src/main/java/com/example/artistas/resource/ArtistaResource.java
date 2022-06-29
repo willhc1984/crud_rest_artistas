@@ -8,26 +8,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.artistas.model.Album;
-import com.example.artistas.services.AlbumService;
+import com.example.artistas.model.Artista;
+import com.example.artistas.services.ArtistaService;
 
 @RestController
-@RequestMapping(value = "/album")
-public class AlbumResource {
+@RequestMapping(value = "/artista")
+public class ArtistaResource {
 	
 	@Autowired
-	private AlbumService service;
+	private ArtistaService service;
 	
 	@GetMapping
-	public List<Album> buscar(){
-		List<Album> albuns = service.buscarTodos();
-		return albuns;
+	public List<Artista> buscar(){
+		return service.buscarTodos();
 	}
 	
 	@GetMapping(value = "{id}")
-	public Album buscarPorId(@PathVariable Integer id) {
-		Album album = service.buscar(id);
-		return album;
+	public Artista buscarPorId(@PathVariable Integer id) {
+		Artista artista = service.buscarPorId(id);
+		return artista;		
 	}
 
 }
