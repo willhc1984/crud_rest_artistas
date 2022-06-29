@@ -5,16 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity
 public class Musica implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Integer duracao;
 	
+	@Transient
 	private List<Artista> interpretes = new ArrayList<>();
+	@Transient
 	private List<Artista> autores = new ArrayList<>();
+	@Transient
 	private List<Album> albuns = new ArrayList<>();
 	
 	public Musica() {
