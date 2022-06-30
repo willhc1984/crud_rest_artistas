@@ -20,10 +20,11 @@ public class ArtistaResource {
 	
 	@GetMapping
 	public List<Artista> buscar(){
-		return service.buscarTodos();
+		List<Artista> artistas = service.buscarTodos();
+		return artistas;
 	}
 	
-	@GetMapping(value = "{id}")
+	@GetMapping(value = "/{id}")
 	public Artista buscarPorId(@PathVariable Integer id) {
 		Artista artista = service.buscarPorId(id);
 		return artista;		

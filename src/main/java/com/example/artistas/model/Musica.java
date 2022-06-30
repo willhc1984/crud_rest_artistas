@@ -92,11 +92,11 @@ public class Musica implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Musica [id=" + id + ", nome=" + nome + ", duracao=" + duracao + ", interpretes=" + interpretes
-				+ ", autores=" + autores + ", albuns=" + albuns + "]";
-	}
+	/*
+	 * @Override public String toString() { return "Musica [id=" + id + ", nome=" +
+	 * nome + ", duracao=" + duracao + ", interpretes=" + interpretes + ", autores="
+	 * + autores + ", albuns=" + albuns + "]"; }
+	 */
 	
 	
 

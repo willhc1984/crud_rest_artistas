@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.example.artistas.model.Artista;
-import com.example.artistas.repositories.ArtistaRepository;
+import com.example.artistas.model.Musica;
+import com.example.artistas.repositories.MusicaRepository;
 
 @Service
-public class ArtistaService {
+public class MusicaService {
 	
 	@Autowired
-	private ArtistaRepository repository;
+	private MusicaRepository repository;
 	
-	public List<Artista> buscarTodos(){
+	public List<Musica> buscarTodos(){
 		return repository.findAll();
 	}
 	
-	public Artista buscarPorId(@PathVariable Integer id) {
-		Optional<Artista> artista = repository.findById(id);
+	public Musica buscarPorId(@PathVariable Integer id){
+		Optional<Musica> artista = repository.findById(id);
 		return artista.get();
 	}
 

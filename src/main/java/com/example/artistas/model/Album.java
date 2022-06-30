@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Album implements Serializable {
 	private String nome;
 	private Integer ano;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "ALBUM_PARTICIPANTE",
 			joinColumns = @JoinColumn(name = "album_id"),
 			inverseJoinColumns = @JoinColumn(name = "artista_id"))	

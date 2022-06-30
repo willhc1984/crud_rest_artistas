@@ -19,7 +19,7 @@ public class AlbumService {
 		return repository.findAll();
 	}
 	
-	public Album buscar(Integer id) {
+	public Album buscarPorId(Integer id) {
 		Optional<Album> album = repository.findById(id);
 		return album.get();
 	}
