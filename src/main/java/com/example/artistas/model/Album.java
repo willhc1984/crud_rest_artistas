@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Album implements Serializable {
 	
@@ -26,6 +28,7 @@ public class Album implements Serializable {
 	private String nome;
 	private Integer ano;
 	
+	@JsonBackReference
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "ALBUM_PARTICIPANTE",
 			joinColumns = @JoinColumn(name = "album_id"),
