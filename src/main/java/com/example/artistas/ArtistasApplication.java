@@ -36,6 +36,7 @@ public class ArtistasApplication implements CommandLineRunner{
 		Album alb3 = new Album(null, "Master of Puppets", 145);
 		Album alb4 = new Album(null, "Acoustica", 874);
 		Album alb5 = new Album(null, "Vertigo", 637);
+		Album alb6 = new Album(null, "One", 745);
 		
 		Artista art1 = new Artista(null, "Led Zeppelin", "Inglaterra");
 		Artista art2 = new Artista(null, "Metallica", "USA");
@@ -49,12 +50,23 @@ public class ArtistasApplication implements CommandLineRunner{
 		Musica m5 = new Musica(null, "Kashimir", 254);
 		
 		alb1.getParticipantes().addAll(Arrays.asList(art1));
+		alb1.getMusicas().addAll(Arrays.asList(m1, m5));
 		alb2.getParticipantes().addAll(Arrays.asList(art1));
+		alb2.getMusicas().addAll(Arrays.asList(m1, m5));
 		alb3.getParticipantes().addAll(Arrays.asList(art2));
+		alb3.getMusicas().addAll(Arrays.asList(m4));
 		alb4.getParticipantes().addAll(Arrays.asList(art4));
-		alb5.getParticipantes().addAll(Arrays.asList(art3));		
+		alb4.getMusicas().addAll(Arrays.asList(m2));
+		alb5.getParticipantes().addAll(Arrays.asList(art3));
+		alb5.getMusicas().addAll(Arrays.asList(m3));
+		alb6.getParticipantes().addAll(Arrays.asList(art2));
 		
-		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3, alb4, alb5));
+		art1.getAlbuns().addAll(Arrays.asList(alb1, alb2));
+		art2.getAlbuns().addAll(Arrays.asList(alb3, alb6));
+		art3.getAlbuns().addAll(Arrays.asList(alb5));
+		art4.getAlbuns().addAll(Arrays.asList(alb4));		
+		
+		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3, alb4, alb5, alb6));
 		artistaRepository.saveAll(Arrays.asList(art1, art2, art3, art4));
 		musicaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5));
 		

@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Album implements Serializable {
@@ -35,7 +35,11 @@ public class Album implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "artista_id"))	
 	private List<Artista> participantes = new ArrayList<>();
 	
-	@Transient
+	@JsonManagedReference
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "ALBUM_MUSICA",
+			joinColumns = @JoinColumn(name = "album_id"),
+			inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicas = new ArrayList<>();
 	
 	public Album(){

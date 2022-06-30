@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,7 +27,7 @@ public class Artista implements Serializable{
 	private Integer id;
 	private String nome;
 	private String nacionalidade;
-	
+
 	@JsonManagedReference
 	@ManyToMany(mappedBy = "participantes")
 	private List<Album> albuns = new ArrayList<>();

@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Musica implements Serializable{
@@ -26,7 +30,8 @@ public class Musica implements Serializable{
 	private List<Artista> interpretes = new ArrayList<>();
 	@Transient
 	private List<Artista> autores = new ArrayList<>();
-	@Transient
+	@JsonBackReference
+	@ManyToMany(mappedBy = "musicas")
 	private List<Album> albuns = new ArrayList<>();
 	
 	public Musica() {
