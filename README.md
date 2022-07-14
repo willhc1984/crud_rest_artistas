@@ -14,7 +14,7 @@ nome, ano, ou duração total do álbum. Um álbum pode ter a participação de 
 distinção. Já a música pode possuir um ou mais autores e intérpretes (todos considerados artistas).
 
 ## UML - Modelo conceitual
-![Mobile 1](crud_rest_campeonato.png)
+![Mobile 1](https://github.com/willhc1984/crud_rest_artistas/blob/main/crud_rest_artistas.png)
 
 # Tecnologias utilizadas
 ## Back end
