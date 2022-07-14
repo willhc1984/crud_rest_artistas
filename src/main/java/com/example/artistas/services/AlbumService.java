@@ -23,5 +23,17 @@ public class AlbumService {
 		Optional<Album> album = repository.findById(id);
 		return album.get();
 	}
+	
+	public Album salvar(Album album) {
+		return repository.save(album);
+	}
+	
+	public Album atualizar(Album album) {
+		return repository.save(album);
+	}
+	
+	public void apagar(Integer id) {
+		repository.deleteById(id);
+	}
 
 }

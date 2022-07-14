@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Artista implements Serializable{
@@ -25,19 +25,21 @@ public class Artista implements Serializable{
 	private Integer id;
 	private String nome;
 	private String nacionalidade;
-
-	@JsonManagedReference
+	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "participantes")
 	private List<Album> albuns = new ArrayList<>();
 	
+	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "artista_musicaInterpretada", 
+	@JoinTable(name = "artista_musicanterpretada", 
 		joinColumns = @JoinColumn(name = "artista_id"),
 		inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasInterpretadas = new ArrayList<>();
 	
+	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "artista_musicaComoAutor",
+	@JoinTable(name = "artista_musicacomoAutor",
 				joinColumns = @JoinColumn(name = "artista_id"),
 				inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasComoAutor = new ArrayList<>();

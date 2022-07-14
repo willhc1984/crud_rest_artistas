@@ -14,8 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Album implements Serializable {
@@ -28,16 +27,15 @@ public class Album implements Serializable {
 	private String nome;
 	private Integer ano;
 	
-	@JsonBackReference
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "ALBUM_PARTICIPANTE",
+	@JoinTable(name = "album_participante",
 			joinColumns = @JoinColumn(name = "album_id"),
 			inverseJoinColumns = @JoinColumn(name = "artista_id"))	
 	private List<Artista> participantes = new ArrayList<>();
 	
-	@JsonManagedReference
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "ALBUM_MUSICA",
+	@JoinTable(name = "album_musica",
 			joinColumns = @JoinColumn(name = "album_id"),
 			inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicas = new ArrayList<>();
