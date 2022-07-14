@@ -62,34 +62,30 @@ public class ArtistasApplication implements CommandLineRunner{
 		alb6.getParticipantes().addAll(Arrays.asList(art2));
 		
 		art1.getAlbuns().addAll(Arrays.asList(alb1, alb2));
-		art2.getAlbuns().addAll(Arrays.asList(alb3, alb6));
+		art1.getMusicasComoAutor().addAll(Arrays.asList(m1, m5));
+		art1.getMusicasInterpretadas().addAll(Arrays.asList(m1, m5, m4));
+		
+		art2.getAlbuns().addAll(Arrays.asList(alb3));
+		art2.getMusicasComoAutor().addAll(Arrays.asList(m4));
+		art2.getMusicasInterpretadas().addAll(Arrays.asList(m1, m5, m4));
+		
 		art3.getAlbuns().addAll(Arrays.asList(alb5));
+		art3.getMusicasComoAutor().addAll(Arrays.asList(m3));
+		art3.getMusicasInterpretadas().addAll(Arrays.asList(m1, m2, m5));
+		
 		art4.getAlbuns().addAll(Arrays.asList(alb4));
+		art4.getMusicasComoAutor().addAll(Arrays.asList(m2));
+		art4.getMusicasInterpretadas().addAll(Arrays.asList(m1, m3, m4));		
 		
 		m1.getAlbuns().addAll(Arrays.asList(alb1, alb2));
 		m2.getAlbuns().addAll(Arrays.asList(alb4));
 		m3.getAlbuns().addAll(Arrays.asList(alb5));
 		m4.getAlbuns().addAll(Arrays.asList(alb4));
-		m5.getAlbuns().addAll(Arrays.asList(alb1, alb2));
+		m5.getAlbuns().addAll(Arrays.asList(alb1, alb2));		
 		
 		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3, alb4, alb5, alb6));
 		artistaRepository.saveAll(Arrays.asList(art1, art2, art3, art4));
 		musicaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5));
-		
-		
-
-			
-		/*
-		 * art2.getAlbuns().addAll(Arrays.asList(alb3));
-		 * art3.getAlbuns().addAll(Arrays.asList(alb5));
-		 * art4.getAlbuns().addAll(Arrays.asList(alb4));
-		 */
-		
-		
-		
-		
-		
-		
 		
 		
 	}

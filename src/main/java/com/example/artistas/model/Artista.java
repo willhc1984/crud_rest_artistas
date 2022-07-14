@@ -31,13 +31,13 @@ public class Artista implements Serializable{
 	private List<Album> albuns = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "artista_musica", 
+	@JoinTable(name = "artista_musicaInterpretada", 
 		joinColumns = @JoinColumn(name = "artista_id"),
 		inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasInterpretadas = new ArrayList<>();
 	
 	@ManyToMany
-	@JoinTable(name = "artista_musica",
+	@JoinTable(name = "artista_musicaComoAutor",
 				joinColumns = @JoinColumn(name = "artista_id"),
 				inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasComoAutor = new ArrayList<>();
