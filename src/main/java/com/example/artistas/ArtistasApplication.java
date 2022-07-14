@@ -64,7 +64,13 @@ public class ArtistasApplication implements CommandLineRunner{
 		art1.getAlbuns().addAll(Arrays.asList(alb1, alb2));
 		art2.getAlbuns().addAll(Arrays.asList(alb3, alb6));
 		art3.getAlbuns().addAll(Arrays.asList(alb5));
-		art4.getAlbuns().addAll(Arrays.asList(alb4));		
+		art4.getAlbuns().addAll(Arrays.asList(alb4));
+		
+		m1.getAlbuns().addAll(Arrays.asList(alb1, alb2));
+		m2.getAlbuns().addAll(Arrays.asList(alb4));
+		m3.getAlbuns().addAll(Arrays.asList(alb5));
+		m4.getAlbuns().addAll(Arrays.asList(alb4));
+		m5.getAlbuns().addAll(Arrays.asList(alb1, alb2));
 		
 		albumRepository.saveAll(Arrays.asList(alb1, alb2, alb3, alb4, alb5, alb6));
 		artistaRepository.saveAll(Arrays.asList(art1, art2, art3, art4));

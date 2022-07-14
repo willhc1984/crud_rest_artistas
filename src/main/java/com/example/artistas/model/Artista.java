@@ -12,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,8 +29,18 @@ public class Artista implements Serializable{
 	@JsonManagedReference
 	@ManyToMany(mappedBy = "participantes")
 	private List<Album> albuns = new ArrayList<>();
-	@Transient
-	private List<Musica> musicas = new ArrayList<>();
+	
+	@ManyToMany
+	@JoinTable(name = "artista_musica", 
+		joinColumns = @JoinColumn(name = "artista_id"),
+		inverseJoinColumns = @JoinColumn(name = "musica_id"))
+	private List<Musica> musicasInterpretadas = new ArrayList<>();
+	
+	@ManyToMany
+	@JoinTable(name = "artista_musica",
+				joinColumns = @JoinColumn(name = "artista_id"),
+				inverseJoinColumns = @JoinColumn(name = "musica_id"))
+	private List<Musica> musicasComoAutor = new ArrayList<>();
 	
 	public Artista() {
 	}
@@ -43,7 +51,7 @@ public class Artista implements Serializable{
 		this.nome = nome;
 		this.nacionalidade = nacionalidade;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,19 +75,18 @@ public class Artista implements Serializable{
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
+	
 
 	public List<Album> getAlbuns() {
 		return albuns;
 	}
-	
 
-	public List<Musica> getMusicas() {
-		return musicas;
+	public List<Musica> getMusicasInterpretadas() {
+		return musicasInterpretadas;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public List<Musica> getMusicasComoAutor() {
+		return musicasComoAutor;
 	}
 
 	@Override
@@ -93,11 +100,5 @@ public class Artista implements Serializable{
 		Artista other = (Artista) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	@Override
-	public String toString() {
-		return "Artista [id=" + id + ", nome=" + nome + ", nacionalidade=" + nacionalidade + ", albuns=" + albuns
-				+ ", musicas=" + musicas + "]";
-	}	
 
 }

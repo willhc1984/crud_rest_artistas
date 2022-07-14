@@ -12,7 +12,7 @@ import com.example.artistas.model.Album;
 import com.example.artistas.services.AlbumService;
 
 @RestController
-@RequestMapping(value = "/album")
+@RequestMapping(value = "/albuns")
 public class AlbumResource {
 	
 	@Autowired

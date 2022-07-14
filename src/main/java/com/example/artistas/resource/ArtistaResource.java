@@ -12,7 +12,7 @@ import com.example.artistas.model.Artista;
 import com.example.artistas.services.ArtistaService;
 
 @RestController
-@RequestMapping(value = "/artista")
+@RequestMapping(value = "/artistas")
 public class ArtistaResource {
 	
 	@Autowired

@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Musica implements Serializable{
@@ -26,9 +25,9 @@ public class Musica implements Serializable{
 	private String nome;
 	private Integer duracao;
 	
-	@Transient
+	@ManyToMany(mappedBy = "musicasInterpretadas")
 	private List<Artista> interpretes = new ArrayList<>();
-	@Transient
+	@ManyToMany(mappedBy = "musicasComoAutor")
 	private List<Artista> autores = new ArrayList<>();
 	@JsonBackReference
 	@ManyToMany(mappedBy = "musicas")
