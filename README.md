@@ -18,11 +18,12 @@ distinção. Já a música pode possuir um ou mais autores e intérpretes (todos
 
 # Tecnologias utilizadas
 ## Back end
-- Java
-- Spring Boot
+- Java 17
+- Spring Boot 2.7.1
 - JPA / Hibernate
 - Maven
 - Banco de dados H2.
+- Spring Tool Suite 4
 
 # Autor
 
