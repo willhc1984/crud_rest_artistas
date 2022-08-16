@@ -1,55 +1,45 @@
-package com.example.artistas.model;
+package com.example.artistas.model.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.example.artistas.model.Album;
+import com.example.artistas.model.Artista;
+import com.example.artistas.model.Musica;
 
-@Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Artista implements Serializable{
+public class ArtistaDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank(message = "Nome não pode ser nulo ou vazio.")
 	private String nome;
+	@NotBlank(message = "Nacionalidade não pode ser nula ou vazia.")
 	private String nacionalidade;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "participantes")
 	private List<Album> albuns = new ArrayList<>();
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "artista_musicanterpretada", 
-		joinColumns = @JoinColumn(name = "artista_id"),
-		inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasInterpretadas = new ArrayList<>();
 	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "artista_musicacomoAutor",
-				joinColumns = @JoinColumn(name = "artista_id"),
-				inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasComoAutor = new ArrayList<>();
 	
-	public Artista() {
+	public ArtistaDTO() {
 	}
 	
-	public Artista(Integer id, String nome, String nacionalidade) {
+	public ArtistaDTO(Artista artista) {
+		this.id = artista.getId();
+		this.nome = artista.getNome();
+		this.nacionalidade = artista.getNacionalidade();
+		this.albuns = artista.getAlbuns();
+		this.musicasInterpretadas = artista.getMusicasInterpretadas();
+		this.musicasComoAutor = artista.getMusicasComoAutor();
+	}
+	
+	public ArtistaDTO(Integer id, String nome, String nacionalidade) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -101,7 +91,7 @@ public class Artista implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artista other = (Artista) obj;
+		ArtistaDTO other = (ArtistaDTO) obj;
 		return Objects.equals(id, other.id);
 	}
 

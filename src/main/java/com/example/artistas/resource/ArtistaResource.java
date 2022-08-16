@@ -1,8 +1,12 @@
 package com.example.artistas.resource;
 
+import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.artistas.model.Artista;
+import com.example.artistas.model.dto.ArtistaDTO;
 import com.example.artistas.services.ArtistaService;
 
 @RestController
@@ -23,30 +28,35 @@ public class ArtistaResource {
 	private ArtistaService service;
 	
 	@GetMapping
-	public List<Artista> buscar(){
-		List<Artista> artistas = service.buscarTodos();
-		return artistas;
+	public ResponseEntity<List<ArtistaDTO>> buscar(){
+		List<ArtistaDTO> artistas = service.buscarTodos();
+		return ResponseEntity.ok().body(artistas);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Artista buscarPorId(@PathVariable Integer id) {
-		Artista artista = service.buscarPorId(id);
-		return artista;
+	public ResponseEntity<ArtistaDTO> buscarPorId(@PathVariable Integer id) {
+		ArtistaDTO dto = service.buscarPorId(id);
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
-	public void salvar(@RequestBody Artista artista) {
-		service.salvar(artista);
+	public ResponseEntity<ArtistaDTO> salvar(@Valid @RequestBody ArtistaDTO dto) {
+		dto = service.salvar(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public void  atualizar(@RequestBody Artista artista) {
-		service.atualizar(artista);
+	public ResponseEntity<ArtistaDTO> atualizar(@PathVariable Integer id, @Valid @RequestBody ArtistaDTO dto) {
+		dto = service.atualizar(id, dto);
+		return ResponseEntity.ok().body(dto);
+		
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public void apagar(@PathVariable Integer id) {
+	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
 		service.apagar(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
