@@ -30,55 +30,53 @@ import com.example.artistas.services.ArtistaService;
 @RestController
 @RequestMapping(value = "/artistas")
 public class ArtistaResource {
-	
+
 	@Autowired
 	private ArtistaService service;
-	
+
 	@GetMapping
-	public ResponseEntity<List<ArtistaDTO>> buscar(){
+	public ResponseEntity<List<ArtistaDTO>> buscar() {
 		List<ArtistaDTO> artistas = service.buscarTodos();
 		return ResponseEntity.ok().body(artistas);
 	}
-	
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ArtistaDTO> buscarPorId(@PathVariable Integer id) {
 		ArtistaDTO dto = service.buscarPorId(id);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<ArtistaDTO> salvar(@Valid @RequestBody ArtistaDTO dto) {
 		dto = service.salvar(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ArtistaDTO> atualizar(@PathVariable Integer id, @Valid @RequestBody ArtistaDTO dto) {
 		dto = service.atualizar(id, dto);
 		return ResponseEntity.ok().body(dto);
-		
+
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
 		service.apagar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	/*
-	 * @ResponseStatus(HttpStatus.BAD_REQUEST)
-	 * 
-	 * @ExceptionHandler(MethodArgumentNotValidException.class) public
-	 * ResponseEntity<StandardError>
-	 * handleValidationException(MethodArgumentNotValidException e,
-	 * HttpServletRequest request){ StandardError err = new StandardError();
-	 * err.setTimestamp(Instant.now());
-	 * err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
-	 * err.setError("UNPROCESSABLE_ENTITY");
-	 * err.setMessage("Erro de validação de dados");
-	 * err.setPath(request.getRequestURI()); return
-	 * ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err); }
-	 */
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<StandardError> handleValidationException(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+		err.setError("UNPROCESSABLE_ENTITY");
+		err.setMessage("Erro de validação de dados");
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+	}
 
 }

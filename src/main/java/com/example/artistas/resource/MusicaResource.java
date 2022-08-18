@@ -30,45 +30,45 @@ import com.example.artistas.services.MusicaService;
 @RestController
 @RequestMapping(value = "/musicas")
 public class MusicaResource {
-	
+
 	@Autowired
 	private MusicaService service;
-	
+
 	@GetMapping
-	public ResponseEntity<List<MusicaDTO>> buscar(){
+	public ResponseEntity<List<MusicaDTO>> buscar() {
 		List<MusicaDTO> musicas = service.buscarTodos();
 		return ResponseEntity.ok().body(musicas);
 	}
-	
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<MusicaDTO> buscarPorId(@PathVariable Integer id) {
 		MusicaDTO dto = service.buscarPorId(id);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<MusicaDTO> salvar(@Valid @RequestBody MusicaDTO dto) {
 		dto = service.salvar(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<MusicaDTO> atualizar(@PathVariable Integer id, @Valid @RequestBody MusicaDTO dto) {
 		dto = service.atualizar(dto, id);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
 		service.apagar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> handleValidationException(MethodArgumentNotValidException e, 
-			HttpServletRequest request){
+	public ResponseEntity<StandardError> handleValidationException(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
@@ -77,5 +77,5 @@ public class MusicaResource {
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package com.example.artistas.model.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import com.example.artistas.model.Album;
 import com.example.artistas.model.Artista;
 import com.example.artistas.model.Musica;
 
-public class MusicaDTO {
+public class MusicaDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	@NotBlank(message = "Nome não pode ser nulo")
