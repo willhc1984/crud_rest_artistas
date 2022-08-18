@@ -1,9 +1,14 @@
 package com.example.artistas.resource.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.artistas.model.dto.ArtistaDTO;
 import com.example.artistas.services.ArtistaService;
@@ -17,8 +22,23 @@ public class ArtistaController {
 	private ArtistaService service;
 	
 	@GetMapping("/cadastro")
-	public String cadastro(ArtistaDTO artistaDTO) {
+	public String save(ArtistaDTO artistaDTO) {
 		return "cad-artista";
+	}
+	
+	@PostMapping("/cadastro")
+	public String create(@Valid ArtistaDTO artistaDTO, BindingResult result, RedirectAttributes attr) {
+		if(result.hasErrors()) {
+			return "cad-artista";
+		}
+		try {
+			service.salvar(artistaDTO);
+			attr.addFlashAttribute("success", "Artista cadastrado!");
+			return "redirect:/web/artistas/cadastro";
+		} catch (Exception e) {
+			attr.addFlashAttribute("fail", "Erro: Violação de chave.");
+			return "redirect:/web/artistas/cadastro";
+		}		
 	}
 	
 	
