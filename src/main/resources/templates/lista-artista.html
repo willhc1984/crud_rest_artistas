@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-	<title>Projeto Artistas - API Spring REST + Spring MVC</title>
+	<title>Desafio DIO - Academia Digital</title>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -23,36 +23,42 @@
 		<div>Header</div>
 	</header>
 
-	<div class="container" style="padding: 50px;">
+	<div class="container" style="padding: 50px">
 
-		<h3>Cadastrar artista</h3>
-
+		<h2>Artistas cadastrados:</h2>
 		<div th:replace="alert"></div>
 
-		<form th:action="@{/web/artistas/cadastro}" th:object="${artistaDTO}" method="POST">
-			<div class="form-group">
-				<label for="formGroupExampleInput">Nome:</label> <input type="text" class="form-control"
-					id="formGroupExampleInput" placeholder="nome do artista" th:field="*{nome}"
-					th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
-				<div class="invalid-feedback">
-					<span th:errors="*{nome}"></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="formGroupExampleInput2">Nacionalidade:</label> <input type="text" class="form-control"
-					id="formGroupExampleInput2" placeholder="país de origem" th:field="*{nacionalidade}"
-					th:classappend="${#fields.hasErrors('nacionalidade')} ? 'is-invalid'" />
-				<div class="invalid-feedback">
-					<span th:errors="*{nacionalidade}"></span>
-				</div>
-			</div>
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Nacionalidade</th>
+					<th scope="col">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="a : ${artistas}">
+					<td th:text="${a.id}"></td>
+					<td th:text="${a.nome}"></td>
+					<td th:text="${a.nacionalidade}"></td>
+					<td>
+						<a class="btn btn-info btn-sm" th:href="@{/web/artistas/update/{id} (id=${a.id}) }"
+							role="button"><span class="oi oi-brush" title="Editar" aria-hidden="true"></span></a>
 
-			<button class="btn btn-primary" type="submit">Salvar</button>
+						<button th:id="${#strings.concat('btn_web/artistas/delete/', a.id) }" type="button"
+							class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+							<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
 
-		</form>
+			</tbody>
+		</table>
 
 	</div>
 
+	<div th:replace="modal :: modal"></div>
 
 	<footer th:replace="footer :: rodape">
 		<div>Footer</div>
@@ -66,6 +72,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
+	<script type="text/javascript">
+
+		var url = '';
+
+		$('button[id*="btn_"]').click(function () {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+		});
+
+		$('#ok_confirm').click(function () {
+			document.location.href = url;
+		});
+
+	</script>
 
 </body>
 
