@@ -66,17 +66,19 @@ public class ArtistaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> handleValidationException(MethodArgumentNotValidException e, 
-			HttpServletRequest request){
-		StandardError err = new StandardError();
-		err.setTimestamp(Instant.now());
-		err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
-		err.setError("UNPROCESSABLE_ENTITY");
-		err.setMessage("Erro de validação de dados");
-		err.setPath(request.getRequestURI());
-		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
-	}
+	/*
+	 * @ResponseStatus(HttpStatus.BAD_REQUEST)
+	 * 
+	 * @ExceptionHandler(MethodArgumentNotValidException.class) public
+	 * ResponseEntity<StandardError>
+	 * handleValidationException(MethodArgumentNotValidException e,
+	 * HttpServletRequest request){ StandardError err = new StandardError();
+	 * err.setTimestamp(Instant.now());
+	 * err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+	 * err.setError("UNPROCESSABLE_ENTITY");
+	 * err.setMessage("Erro de validação de dados");
+	 * err.setPath(request.getRequestURI()); return
+	 * ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err); }
+	 */
 
 }

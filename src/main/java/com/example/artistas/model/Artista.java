@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,18 +30,18 @@ public class Artista implements Serializable{
 	private String nacionalidade;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "participantes")
+	@ManyToMany(mappedBy = "participantes", cascade = CascadeType.REMOVE)
 	private List<Album> albuns = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "artista_musicanterpretada", 
 		joinColumns = @JoinColumn(name = "artista_id"),
 		inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasInterpretadas = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "artista_musicacomoAutor",
 				joinColumns = @JoinColumn(name = "artista_id"),
 				inverseJoinColumns = @JoinColumn(name = "musica_id"))

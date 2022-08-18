@@ -3,6 +3,8 @@ package com.example.artistas.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,8 +14,8 @@ import com.example.artistas.model.Artista;
 import com.example.artistas.model.dto.ArtistaDTO;
 import com.example.artistas.repositories.ArtistaRepository;
 import com.example.artistas.services.exceptions.DeleteException;
-import com.example.artistas.services.exceptions.EntityNotFoundException;
 import com.example.artistas.services.exceptions.IntegrityViolationException;
+import com.example.artistas.services.exceptions.NotFoundException;
 
 @Service
 public class ArtistaService {
@@ -33,7 +35,7 @@ public class ArtistaService {
 
 	public ArtistaDTO buscarPorId(Integer id) {
 		Artista artista = repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Id não encontrado - " + id));
+				.orElseThrow(() -> new NotFoundException("Id não encontrado - " + id));
 		ArtistaDTO dto = new ArtistaDTO(artista);
 		return dto;
 	}
@@ -53,9 +55,12 @@ public class ArtistaService {
 	public ArtistaDTO atualizar(Integer id, ArtistaDTO dto) {
 		Artista obj = repository.getReferenceById(id);
 		updateData(obj, dto);
-		obj = repository.save(obj);
+		try {
+			obj = repository.save(obj);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException("Id não encontrado - " + id);
+		}
 		return new ArtistaDTO(obj);
-
 	}
 
 	private void updateData(Artista obj, ArtistaDTO dto) {
@@ -67,10 +72,8 @@ public class ArtistaService {
 		try {
 			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
 			throw new IntegrityViolationException("Violação de integridade de dados");
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 			throw new DeleteException("Id não existe - " + id);
 		}
 	}
