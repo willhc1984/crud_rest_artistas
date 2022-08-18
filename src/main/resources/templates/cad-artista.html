@@ -25,41 +25,25 @@
 
 	<div class="container" style="padding: 50px;">
 
-		<h2>Cadastrar aluno</h2>
+		<h3>Cadastrar artista</h3>
 
 		<div th:replace="alert"></div>
 
-		<form th:action="@{/web/alunos}" th:object="${alunoForm}" method="POST">
+		<form th:action="@{/web/artistas/cadastro}" th:object="${artistaDTO}" method="POST">
 			<div class="form-group">
 				<label for="formGroupExampleInput">Nome:</label> <input type="text" class="form-control"
-					id="formGroupExampleInput" placeholder="nome completo do aluno" th:field="*{nome}"
+					id="formGroupExampleInput" placeholder="nome do artista" th:field="*{nome}"
 					th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
 				<div class="invalid-feedback">
 					<span th:errors="*{nome}"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="formGroupExampleInput2">CPF:</label> <input type="text" class="form-control"
-					id="formGroupExampleInput2" placeholder="CPF do aluno" th:field="*{cpf}"
-					th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'" />
+				<label for="formGroupExampleInput2">Nacionalidade:</label> <input type="text" class="form-control"
+					id="formGroupExampleInput2" placeholder="país de origem" th:field="*{nacionalidade}"
+					th:classappend="${#fields.hasErrors('nacionalidade')} ? 'is-invalid'" />
 				<div class="invalid-feedback">
-					<span th:errors="*{cpf}"></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="formGroupExampleInput2">Bairro:</label> <input type="text" class="form-control"
-					id="formGroupExampleInput2" placeholder="Bairro do aluno" th:field="*{bairro}"
-					th:classappend="${#fields.hasErrors('bairro')} ? 'is-invalid'" />
-				<div class="invalid-feedback">
-					<span th:errors="*{bairro}"></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="formGroupExampleInput2">Data de nascimento:</label> <input type="date" class="form-control"
-					id="formGroupExampleInput2" placeholder="Data de nascimento do aluno" th:field="*{dataDeNascimento}"
-					th:classappend="${#fields.hasErrors('dataDeNascimento')} ? 'is-invalid'" />
-				<div class="invalid-feedback">
-					<span th:errors="*{dataDeNascimento}"></span>
+					<span th:errors="*{nacionalidade}"></span>
 				</div>
 			</div>
 
