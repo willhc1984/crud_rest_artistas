@@ -19,6 +19,7 @@ public class ArtistaDTO implements Serializable{
 	@NotBlank(message = "Nome não pode ser nulo ou vazio.")
 	private String nome;
 	@NotBlank(message = "Nacionalidade não pode ser nula ou vazia.")
+	
 	private String nacionalidade;
 	
 	private List<Album> albuns = new ArrayList<>();

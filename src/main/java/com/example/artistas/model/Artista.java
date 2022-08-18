@@ -30,18 +30,18 @@ public class Artista implements Serializable{
 	private String nacionalidade;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "participantes", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "participantes")
 	private List<Album> albuns = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany
 	@JoinTable(name = "artista_musicanterpretada", 
 		joinColumns = @JoinColumn(name = "artista_id"),
 		inverseJoinColumns = @JoinColumn(name = "musica_id"))
 	private List<Musica> musicasInterpretadas = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany
 	@JoinTable(name = "artista_musicacomoAutor",
 				joinColumns = @JoinColumn(name = "artista_id"),
 				inverseJoinColumns = @JoinColumn(name = "musica_id"))
