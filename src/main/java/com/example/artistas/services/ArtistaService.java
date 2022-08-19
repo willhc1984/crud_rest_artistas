@@ -77,5 +77,4 @@ public class ArtistaService {
 			throw new DeleteException("Id não existe - " + id);
 		}
 	}
-
 }
