@@ -2,14 +2,17 @@ package com.example.artistas.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.artistas.model.Artista;
 import com.example.artistas.model.Musica;
 import com.example.artistas.model.dto.MusicaDTO;
+import com.example.artistas.repositories.ArtistaRepository;
 import com.example.artistas.repositories.MusicaRepository;
 import com.example.artistas.services.exceptions.DeleteException;
 import com.example.artistas.services.exceptions.IntegrityViolationException;
@@ -20,6 +23,8 @@ public class MusicaService {
 	
 	@Autowired
 	private MusicaRepository repository;
+	@Autowired
+	private ArtistaRepository artistaRepository;
 	
 	public List<MusicaDTO> buscarTodos() {
 		List<Musica> musicas = repository.findAll();
@@ -41,6 +46,8 @@ public class MusicaService {
 	public MusicaDTO salvar(MusicaDTO dto) {
 		Musica entity = new Musica();
 		copyToEntity(dto, entity);
+		Artista artista = artistaRepository.findById(dto.getArtistaId()).get();		
+		entity.getAutores().add(artista);
 		repository.save(entity);
 		return new MusicaDTO(entity);
 	}

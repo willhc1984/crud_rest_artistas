@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<title>Projeto Artistas - API Spring REST + Spring MVC</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" href="/image/favicon.png" />
+
+	<!-- Bootstrap core CSS -->
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+	<header th:replace="header :: cabecalho">
+		<div>Header</div>
+	</header>
+
+	<div class="container" style="padding: 50px;">
+
+		<h3>Cadastrar musica</h3>
+
+		<div th:replace="alert"></div>
+
+		<form th:action="@{/web/musicas/cadastro}" th:object="${musicaDTO}" method="POST">
+			<div class="form-group">
+				<label for="formGroupExampleInput">Nome:</label> <input type="text" class="form-control"
+					id="formGroupExampleInput" placeholder="nome da musica" th:field="*{nome}"
+					th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
+				<div class="invalid-feedback">
+					<span th:errors="*{nome}"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput2">Duração:</label> <input type="text" class="form-control"
+					id="formGroupExampleInput2" placeholder="duração em segundos" th:field="*{duracao}"
+					th:classappend="${#fields.hasErrors('duracao')} ? 'is-invalid'" />
+				<div class="invalid-feedback">
+					<span th:errors="*{duracao}"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="exampleFormControlSelect2">Selecione o artista</label>
+				<select multiple class="form-control" 
+				id="exampleFormControlSelect2" th:field="*{artistaId}">
+					<option th:each="artista : ${artistas}" th:value="${artista.getId()}"
+						th:text="${artista.getNome()}"></option>
+				</select>
+			</div>
+
+			<button class="btn btn-primary" type="submit">Salvar</button>
+
+		</form>
+
+	</div>
+
+
+	<footer th:replace="footer :: rodape">
+		<div>Footer</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

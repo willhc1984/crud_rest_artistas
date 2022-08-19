@@ -81,6 +81,18 @@ public class Musica implements Serializable{
 		return albuns;
 	}
 
+	public void setInterpretes(List<Artista> interpretes) {
+		this.interpretes = interpretes;
+	}
+
+	public void setAutores(List<Artista> autores) {
+		this.autores = autores;
+	}
+
+	public void setAlbuns(List<Album> albuns) {
+		this.albuns = albuns;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

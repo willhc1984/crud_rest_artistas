@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.example.artistas.model.Album;
 import com.example.artistas.model.Artista;
@@ -16,6 +18,11 @@ public class MusicaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@Positive(message = "Selecione um artista.")
+	@NotNull(message = "Preencha o campo corretamente.")
+	private Integer artistaId;
+	
 	@NotBlank(message = "Nome não pode ser nulo")
 	private String nome;
 	@Min(value = 1, message = "Duração minima deve ser 1 minuto")
@@ -44,6 +51,14 @@ public class MusicaDTO implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.duracao = duracao;
+	}
+
+	public Integer getArtistaId() {
+		return artistaId;
+	}
+
+	public void setArtistaId(Integer artistaId) {
+		this.artistaId = artistaId;
 	}
 
 	public Integer getId() {
